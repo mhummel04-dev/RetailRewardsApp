@@ -1,0 +1,10 @@
+- Models
+	- User
+	- Item
+	- Offer 
+	- Location
+	- Notification
+	- Company
+	- Business
+	- Transaction
+	- TransactionItem

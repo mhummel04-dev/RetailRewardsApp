@@ -1,0 +1,128 @@
+- Business
+	- Description: Class to represent the business that the user is shopping at. Meant to be different from 
+	Location and Company types, which are meant to represent Locations of Businesses (I.E. Businesses have multiple
+	Locations), and overseeing Companies to the businesses (I.E. Companies have multiple Businesses).
+	- Elements:
+		- Guid Id: Represents internal unique ID via Guid for the Business
+		- Company Company: Represents the overarching Company (think LLC) that owns the Business
+		- string Name: Represents the name of the Business
+		- List<Location> Locations: Represents a list of Locations this Business has opened
+
+
+- Company
+    - Description: Class to represent the overarching company that owns one or more Businesses. 
+    Meant to be different from Business and Location types, where Companies represent the 
+    highest level entity (think LLC or parent company), Businesses represent the branded 
+    business itself, and Locations represent the individual physical store locations that 
+    customers visit.
+    - Elements:
+        - Guid Id: Represents the internal unique identifier for the Company
+        - string Name: Represents the name of the Company that owns one or more Businesses
+		- List<Business> Businesses: Represents the list of businesses this company oversees
+
+
+- Item
+    - Description: Class to represent an Item that a Business sells. Items represent the 
+    individual products that a User can purchase while shopping at a Location.
+    - Elements:
+        - Guid Id: Represents the internal unique identifier for the Item
+        - string Name: Represents the name of the Item
+        - decimal Price: Represents the base price of the Item
+        - string Description: Represents a description of the Item
+        - int Stock: Represents how many of this Item are currently available in inventory
+        - List<Offer> Offers: Represents a list of Offers that can apply to this Item. 
+        Offers may either represent point-based redemptions or standard promotional deals.
+
+
+- Location
+    - Description: Class to represent a physical store location where a Business operates. 
+    Meant to be different from Company and Business types, where Companies represent the 
+    overarching parent entity, Businesses represent the branded business itself, and 
+    Locations represent the specific storefront or physical address that customers visit.
+    - Elements:
+        - Guid Id: Represents the internal unique identifier for the Location
+        - Business Business: Represents the Business that this Location represents
+        - string Address: Represents the physical address of the Location
+        - List<Item> Inventory: Represents the inventory available at this Location. 
+        This list determines which Items are available for purchase at this specific store 
+        and how many are currently in stock.
+        - List<Offer> Offers: Represents the Offers that are available at this Location. 
+        These may include promotional deals or point-based redemption offers available 
+        to customers shopping at this store.
+
+
+- Notification
+    - Description: Class to represent a notification sent to a User. Notifications may 
+    contain information about deals, offers, items, or other important updates related 
+    to the Business or Location the user is interacting with.
+    - Elements:
+        - Guid Id: Represents the internal unique identifier for the Notification
+        - User User: Represents the User that the Notification is associated with
+        - string Header: Represents the title or header of the Notification
+        - string Message: Represents the main body text or message of the Notification
+        - List<Item> Items: Represents any Items that are associated with the Notification
+        - List<Offer> Offers: Represents any Offers that are associated with the Notification
+        - DateTime Timestamp: Represents the date and time the Notification was created
+        - bool isRead: Represents whether the User has already viewed or read the Notification
+
+
+- Offer
+    - Description: Class to represent promotional deals or point-based redemption offers 
+    that can apply to one or more Items. Offers may either represent a standard deal or a 
+    reward that requires points to redeem.
+    - Elements:
+        - Guid Id: Represents the internal unique identifier for the Offer
+        - List<Item> Items: Represents the Items that this Offer applies to. This allows 
+        Offers to be associated with multiple Items at once (for example, a deal applying 
+        to several products).
+        - string Description: Represents the description of the Offer
+        - int PointCost: Represents the number of points required to redeem the Offer. 
+        If the PointCost is 0, the Offer represents a standard deal or promotion. If the 
+        PointCost is greater than 0, the Offer represents a point-based redemption reward.
+
+
+- Transaction
+    - Description: Class to represent a purchase transaction performed by a User. 
+    Transactions record the details of a purchase including which Business and Location 
+    the purchase occurred at, which Items were purchased, any Offers that were used, 
+    and the total amount spent.
+    - Elements:
+        - Guid Id: Represents the internal unique identifier for the Transaction
+        - User User: Represents the User that performed the Transaction
+        - Business Business: Represents the Business where the Transaction occurred
+        - Location Location: Represents the specific Location where the Transaction occurred
+        - List<TransactionItem> ItemsPurchased: Represents the Items that were purchased in the Transaction
+            in the state they were at the time of purchasing
+        - decimal TotalSpent: Represents the total amount of money spent during the Transaction
+        - List<Offer> OffersUsed: Represents the Offers that were used during the Transaction
+        - int PointsGained: Represents the number of reward points gained during the Transaction
+        - int PointsUsed: Represents the number of reward points used during the Transaction
+        - DateTime Timestamp: Represents the date and time the Transaction occurred
+
+
+- TransactionItem
+    - Description: Class to represent the state of an Item at the time it was purchased 
+    within a Transaction. This class exists so that historical purchase records remain 
+    accurate even if the original Item later changes name, price, or description.
+    - Elements:
+        - Guid Id: Represents the internal unique identifier for the TransactionItem
+        - Guid ItemId: Represents a reference to the original Item that was purchased
+        - string NameAtPurchase: Represents the name of the Item at the time the purchase occurred
+        - decimal PriceAtPurchase: Represents the price of the Item at the time the purchase occurred
+        - string DescriptionAtPurchase: Represents the description of the Item at the time the purchase occurred
+        - int QuantityPurchased: Represents how many of this Item were purchased during the Transaction
+
+
+- User
+    - Description: Class to represent a user of the application. This class stores the user's identifying information, 
+    login credentials, contact information, and reward point balance. It also stores a list of Transactions the user has made, 
+    which represent purchases and point usage within the rewards system.
+    - Elements:
+        - Guid Id: Represents the internal unique ID for the user via Guid
+        - string Username: Represents the username the user will use to log into the application
+        - string Password: Represents the password associated with the user account
+        - string Email: Represents the email address associated with the user account for communication and account identification
+        - string PhoneNumber: Represents the phone number associated with the user account for contact purposes
+        - int Points: Represents the total number of reward points the user currently has available to spend
+        - List<Transaction> Transactions: Represents a list of Transactions associated with the user, which record purchases, 
+        point earnings, and point usage within the system
