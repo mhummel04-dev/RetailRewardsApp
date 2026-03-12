@@ -12,5 +12,6 @@ namespace RetailRewardsApp.Core.Models
         public string Description { get; set; }
         public int Stock { get; set; }
         public List<Offer> Offers { get; set; } = new();
+        public Location Location { get; set; }
     }
 }

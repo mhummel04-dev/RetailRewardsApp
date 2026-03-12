@@ -5,8 +5,24 @@
              Title="ProfilePage">
     <VerticalStackLayout>
         <Label 
-            Text="Welcome to .NET MAUI!"
+            Text="Welcome to your profile!"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+
+        <Button
+            Text="Click here to edit your profile!"
+            Command="{Binding GoToEditProfileCommand}"
+        />
+
+        <Button
+            Text="Click here to see a detailed view of a notification!"
+            Command="{Binding GoToNotificationCommand}"
+        />
+
+        <Button
+            Text="Click here to see a detailed view of a previous transaction!"
+            Command="{Binding GoToHistoryCommand}"
+        />
+
     </VerticalStackLayout>
 </ContentPage>

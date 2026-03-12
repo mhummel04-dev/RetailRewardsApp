@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="RetailRewardsApp.Mobile.Views.OffersPage"
-             Title="OffersPage">
+             x:Class="RetailRewardsApp.Mobile.Views.ItemDetailPage"
+             Title="ItemDetailPage">
     <VerticalStackLayout>
         <Label 
-            Text="Welcome to your offers!"
+            Text="This is a detailed view of a specific item!"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-
-        <Button
-            Text="Click here to see a detailed view of the offer!"
-            Command="{Binding GoToOfferDetailCommand}"
-        />
-
     </VerticalStackLayout>
 </ContentPage>

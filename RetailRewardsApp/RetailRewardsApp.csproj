@@ -72,11 +72,21 @@
 
 	<ItemGroup>
 	  <Folder Include="Core\Interfaces\" />
-	  <Folder Include="Core\Services\" />
-	  <Folder Include="Mobile\Services\" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Mobile\Views\EditProfilePage.xaml.cs">
+	    <DependentUpon>EditProfilePage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Mobile\Views\OfferDetailPage.xaml.cs">
+	    <DependentUpon>OfferDetailPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Mobile\Views\ItemDetailPage.xaml.cs">
+	    <DependentUpon>ItemDetailPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Mobile\Views\HistoryDetailPage.xaml.cs">
+	    <DependentUpon>HistoryDetailPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Mobile\Views\NotificationDetailPage.xaml.cs">
 	    <DependentUpon>NotificationDetailPage.xaml</DependentUpon>
 	  </Compile>
@@ -101,6 +111,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Mobile\Views\EditProfilePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Mobile\Views\OfferDetailPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Mobile\Views\ItemDetailPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Mobile\Views\HistoryDetailPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Mobile\Views\NotificationDetailPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

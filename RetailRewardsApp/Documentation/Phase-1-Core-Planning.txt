@@ -8,3 +8,18 @@
 	- Business
 	- Transaction
 	- TransactionItem
+
+3/12/2026 - Task: Begin working on Services
+	- Completed so far
+		- Beginning stages of ItemService:
+			- Loads dummy Business, Location, & Location Inventory to return a list of items
+			- I think i want to create a Location service and do the whole business/location thing there,
+			then have a "GetLocation" func in the ItemService. I know its dummy info but i feel like itd 
+			be better in a real production environment.
+
+	- To-Do
+		- LocationService
+		- NotificationService
+		- OfferService
+		- TransactionService
+		- UserService

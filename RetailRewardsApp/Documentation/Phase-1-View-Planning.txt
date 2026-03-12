@@ -1,25 +1,37 @@
 ﻿03/09/2026 - Task is to get all pages created and be able to transfer between each other. No details.
 
-Structure on first look
-	- Login
-	- Home
-		- Notification Detail
-		- History Detail
-	- Scan
-	- Menu
-		- Item Detail
-	- Offers
-		- Offer Detail
-	- Profile
-		- Edit Profile
-		- Notification Detail
-		- History Detail
+	Structure on first look
+		- Login
+		- Home
+			- Notification Detail
+			- History Detail
+		- Scan
+		- Menu
+			- Item Detail
+		- Offers
+			- Offer Detail
+		- Profile
+			- Edit Profile
+			- Notification Detail
+			- History Detail
 
-Completed thus far
-	- Login
-	- Home
-		- Notification Detail
-	- Scan
-	- Menu
-	- Offers
-	- Profile
+	Completed thus far
+		- Login
+		- Home
+			- Notification Detail
+		- Scan
+		- Menu
+		- Offers
+		- Profile
+
+
+	To-Do
+		- History Detail
+		- Item Detail
+		- Offer Detail
+		- Edit Profile
+	
+
+
+03/12/2026 - Finish getting all pages created and connected and begin working on services (back to core planning)
+	- Completed!
