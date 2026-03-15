@@ -23,3 +23,25 @@
 		- OfferService
 		- TransactionService
 		- UserService
+
+
+3/14/2026 - Task: Complete Location and User services, if time allows either edit ItemService or start on the others
+	- I want to do Location and User first as these are the most overarching items (at least before i get into Business & 
+	Company, but I don't want to scope creep.
+		- Locations have Items and Offers, Users have Notifications and Transactions
+
+	- First thinking is Location needs a GetLocation, GetLocationInventory, GetBusiness, GetLocationOffers
+	- Same thing, User needs a GetUser, GetNotifications, GetTransactions (maybe GetTransactionHistory) 
+
+
+	- Upon review I went ahead and made an entire FakeDatabaseService class that functions like a DB with
+	tables and such, then redid ItemService to match as well as begun LocationService (maybe completed? 
+	but im not sure yet.) Next task is to complete all services so the following time we can begin populating 
+	screens with fake data.
+
+	- To-Do
+		- UserService
+		- OfferService
+		- TransactionService
+		- etc. on the services
+		- if time allows, begin testing
