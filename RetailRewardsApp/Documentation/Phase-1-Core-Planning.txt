@@ -45,3 +45,6 @@
 		- TransactionService
 		- etc. on the services
 		- if time allows, begin testing
+
+3/16/2026 - Finished the services as I know to be done, as I continue to integrate the services into the VM's
+i'm sure they'll change slightly but for main setup i think this is complete!

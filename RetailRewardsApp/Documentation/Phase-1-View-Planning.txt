@@ -35,3 +35,15 @@
 
 03/12/2026 - Finish getting all pages created and connected and begin working on services (back to core planning)
 	- Completed!
+
+
+
+03/16/2026 - Having finished main core models and services we're coming back to the views. currently i am now 
+attempting to integrate the services into the views/viewmodels to get the data to be populated into the views
+before going in depth on design. 
+
+	- Currently I am working on LoginVM & HomeVM
+	- To-Do:
+		- Complete Login to Home/Main
+		- Begin other VM's going in the direction of the control flow
+			- Home, Scan, Menu, Offers, Profile

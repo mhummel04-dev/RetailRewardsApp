@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using RetailRewardsApp.Core.Services;
 
 namespace RetailRewardsApp
 {
@@ -14,6 +15,8 @@ namespace RetailRewardsApp
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+
+            builder.Services.AddSingleton<UserSessionService>();
 
 #if DEBUG
     		builder.Logging.AddDebug();

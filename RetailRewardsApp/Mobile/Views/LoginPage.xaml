@@ -10,12 +10,25 @@
             <Label
                 Text="Login/Create Account"
                 Style="{StaticResource Headline}"
-                SemanticProperties.HeadingLevel="Level1" />
+                SemanticProperties.HeadingLevel="Level1" 
+            />
+
+
+            <Entry 
+                Placeholder="Email"
+                Text="{Binding Email}"
+            />
+
+            <Entry 
+                Placeholder="Password"
+                Text="{Binding Password}"
+                IsPassword="True"
+            />
 
             <Button
                 Text="Login/Create Acct"
                 Command="{Binding GoToControlCommand}"
-                />
+            />
 
         </VerticalStackLayout>
     </ScrollView>

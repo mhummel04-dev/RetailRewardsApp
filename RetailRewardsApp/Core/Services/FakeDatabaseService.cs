@@ -14,12 +14,14 @@ namespace RetailRewardsApp.Core.Services
         Models.Location FakeLocation1, FakeLocation2;
         Item FakeItem1, FakeItem2, FakeItem3, FakeItem4;
         Offer FakeOffer1, FakeOffer2, FakeOffer3, FakeOffer4;
+        Transaction FakeTransaction1;
 
         public List<User> FakeUserTable { get; set; }
         public List<Business> FakeBusinessTable { get; set; }
         public List<Models.Location> FakeLocationTable { get; set; }
         public List<Item> FakeItemTable { get; set; }
         public List<Offer> FakeOfferTable { get; set; }
+        public List<Transaction> FakeTransactionTable { get; set; }
 
         public FakeDatabaseService()
         {
@@ -27,7 +29,8 @@ namespace RetailRewardsApp.Core.Services
             FakeBusinessTable = new List<Business> { FakeBusiness1, FakeBusiness2 };
             FakeLocationTable = new List<Models.Location> { FakeLocation1, FakeLocation2 };
             FakeOfferTable = new List<Offer> { FakeOffer1, FakeOffer2, FakeOffer3, FakeOffer4 };
-            FakeItemTable = new List<Item> { FakeItem1, FakeItem2, FakeItem3, FakeItem4 }; 
+            FakeItemTable = new List<Item> { FakeItem1, FakeItem2, FakeItem3, FakeItem4 };
+            FakeTransactionTable = new List<Transaction> { FakeTransaction1 };
 
 
             // User Inits
@@ -159,15 +162,13 @@ namespace RetailRewardsApp.Core.Services
 
 
             // Transaction History Inits
-            FakeUser1.Transactions = new List<Transaction>
+            FakeTransaction1 = new Transaction
             {
-                new Transaction
-                {
-                    Id = Guid.Parse("021c642b-349b-47e6-833c-12bfdfefb479"),
-                    User = FakeUser1,
-                    Business = FakeBusiness1,
-                    Location = FakeLocation1,
-                    ItemsPurchased = new List<TransactionItem>
+                Id = Guid.Parse("021c642b-349b-47e6-833c-12bfdfefb479"),
+                User = FakeUser1,
+                Business = FakeBusiness1,
+                Location = FakeLocation1,
+                ItemsPurchased = new List<TransactionItem>
                     {
                         new TransactionItem
                         {
@@ -179,22 +180,15 @@ namespace RetailRewardsApp.Core.Services
                             QuantityPurchased = 2
                         }
                     },
-                    OffersUsed = new List<Offer>
-                    {
-                        new Offer
-                        {
-                            Id = Guid.Parse("a3076424-0a90-49f9-964e-d6923688dcbc"),
-                            Items = new List<Item> { FakeLocation1.Inventory[0], FakeLocation1.Inventory[1]},
-                            Description = "50% off everything!"
-                        }
-                    },
-                    TotalSpent = 9.89M,
-                    PointsGained = 989,
-                    Timestamp = new DateTime(2026, 3, 15, 12, 0, 0)
-
-                },
+                OffersUsed = new List<Offer> { FakeOffer1 },
+                TotalSpent = 9.89M,
+                PointsGained = 989,
+                Timestamp = new DateTime(2026, 3, 15, 12, 0, 0)
             };
 
+
+            FakeUser1.Transactions = new List<Transaction>() { FakeTransaction1 };
+      
 
 
             // Notifications Inits
