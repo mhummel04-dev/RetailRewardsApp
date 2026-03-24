@@ -1,0 +1,158 @@
+﻿For Context: This is essentially a notes doc. Im using it to track progress as well as leave helpful notes and 
+write stuff down for myself.
+
+03/09/2026
+
+- Task: Get all pages created and be able to transfer between each other. No details.
+
+- Structure on first look: 
+	- Login
+	- Home
+		- Notification Detail
+		- History Detail
+	- Scan
+	- Menu
+		- Item Detail
+	- Offers
+		- Offer Detail
+	- Profile
+		- Edit Profile
+		- Notification Detail
+		- History Detail
+
+- Completed thus far:
+	- Login
+	- Home
+		- Notification Detail
+	- Scan
+	- Menu
+	- Offers
+	- Profile
+
+- To-Do:
+	- History Detail
+	- Item Detail
+	- Offer Detail
+	- Edit Profile
+
+03/12/2026
+
+- Task (Mobile): Finish getting all pages created and connected and begin working on services (back to core planning)
+	- Completed!
+
+- Task (Core): Begin working on Services
+	- User
+		- Transactions, Notifications
+	- Item
+	- Offer
+	- Location
+		- Items, Offers
+	- Notification
+	- Company
+		- Businesses (not concerned yet, not scope creeping.)
+	- Business
+		- Locations (also not concerned yet.)
+	- Transaction
+		- TransactionItem
+	- TransactionItem
+
+- Completed so far:
+	- Beginning stages of ItemService:
+		- Loads dummy Business, Location, & Location Inventory to return a list of items
+
+- I think i want to create a Location service and do the whole business/location thing there, 
+then have a "GetLocation" func in the ItemService. I know its dummy info but i feel like itd 
+be better in a real production environment.
+
+- To-Do:
+	- LocationService
+	- NotificationService
+	- OfferService
+	- TransactionService
+	- UserService
+
+03/14/2026
+
+- Task: Complete Location and User services, if time allows either edit ItemService or start on the others
+
+- I want to do Location and User first as these are the most overarching items 
+(at least before i get into Business & Company, but I don't want to scope creep.)
+
+- Locations have Items and Offers, Users have Notifications and Transactions
+
+- First thinking is:
+	- Location needs:
+		- GetLocation
+		- GetLocationInventory
+		- GetBusiness
+		- GetLocationOffers
+
+	- User needs:
+		- GetUser
+		- GetNotifications
+		- GetTransactions (maybe GetTransactionHistory)
+
+- Upon review I went ahead and made an entire FakeDatabaseService class 
+that functions like a DB with tables and such, then redid ItemService 
+to match as well as begun LocationService 
+	- (maybe completed? but im not sure yet.)
+
+- Next task is to complete all services so the following time we can begin populating screens with fake data.
+
+- To-Do: 
+	- UserService
+	- OfferService
+	- TransactionService
+	- etc. on the services
+	- if time allows, begin testing
+
+03/16/2026
+
+- Core Progress:
+	- Finished the services as I know to be done
+	- As I continue to integrate the services into the VM's i'm sure 
+	they'll change slightly but for main setup i think this is complete
+
+- Mobile Progress:
+	- Having finished main core models and services we're coming back to the views. 
+	currently i am now attempting to integrate the services into the views/viewmodels 
+	to get the data to be populated into the views before going in depth on design.
+
+- Currently I am working on:
+	- LoginVM
+	- HomeVM
+
+- To-Do:
+	- Complete Login to Home/Main
+	- Begin other VM's going in the direction of the control flow:
+		- Home
+		- Scan
+		- Menu
+		- Offers
+		- Profile
+
+
+3/19/2026
+
+- Task: I don't have a very clear direction today other than the viewmodels, ill either work to finish the 
+login -> home/main flow or move to whichever VM flow i think i wanna do.
+
+
+3/24/2026
+- So Far: Login to Home/Main works, and data is populating into the home. Wakaka!
+- Task: Get similar data populating into other views (Scan, Menu, Offers, Profile)
+	- Scan:
+		- User.PhoneNumber (for now until i get a QR code api)
+	- Menu:
+		- Location.Inventory
+	- Offers: 
+		- Location.Offers
+	- Profile:
+		- User: Name, Email, Password, Phone number, Points, RegisteredLocation, etc.
+
+- Success = true!
+- All relevant data seems to be populating, anything extra can come later but its good progress and 
+proof of concept. Wakaka! Next task im thinking is either to continue data flow into the smaller views
+or start getting UI going on the views with the data thats there now.
+
+

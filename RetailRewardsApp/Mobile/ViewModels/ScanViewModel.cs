@@ -10,17 +10,11 @@ using RetailRewardsApp.Core.Models;
 
 namespace RetailRewardsApp.Mobile.ViewModels
 {
-    public class HomeViewModel : INotifyPropertyChanged
+    public class ScanViewModel : INotifyPropertyChanged
     {
         // Service(s) and associated var(s)
         private readonly SessionService SessionService;
         private User _user;
-
-
-        // Command Declarations
-        public ICommand GoToNotificationCommand { get; }
-        public ICommand GoToHistoryCommand { get; }
-
         
         // Binding Variables
         public User BindingUser { get => _user; set
@@ -33,28 +27,12 @@ namespace RetailRewardsApp.Mobile.ViewModels
             } 
         }
 
-        public HomeViewModel(SessionService sessionService) 
+
+        public ScanViewModel(SessionService sessionService) 
         {
             SessionService = sessionService;
             BindingUser = SessionService.LoggedInUser;
-
-
-            GoToNotificationCommand = new Command(async () => await GoToNotification());
-            GoToHistoryCommand = new Command(async () => await GoToHistory());
         }
-
-
-        // Navigation Functions
-        private async Task GoToNotification()
-        {
-            await Shell.Current.GoToAsync(nameof(NotificationDetailPage));
-        }
-
-        private async Task GoToHistory()
-        {
-            await Shell.Current.GoToAsync(nameof(HistoryDetailPage));
-        }
-
 
 
         // INotifyPropertyChanged invoker

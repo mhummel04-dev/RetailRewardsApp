@@ -8,6 +8,7 @@ namespace RetailRewardsApp.Core.Models
     {
         public Guid Id { get; set; } = Guid.NewGuid();
         public Business Business { get; set; }
+        public string Title { get; set; }
         public string Address { get; set; }
         public List<Item> Inventory { get; set; }
         public List<Offer> Offers { get; set; }

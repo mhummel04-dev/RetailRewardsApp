@@ -25,27 +25,6 @@ namespace RetailRewardsApp.Core.Services
 
         public FakeDatabaseService()
         {
-            FakeUserTable = new List<User> { FakeUser1, FakeUser2 };
-            FakeBusinessTable = new List<Business> { FakeBusiness1, FakeBusiness2 };
-            FakeLocationTable = new List<Models.Location> { FakeLocation1, FakeLocation2 };
-            FakeOfferTable = new List<Offer> { FakeOffer1, FakeOffer2, FakeOffer3, FakeOffer4 };
-            FakeItemTable = new List<Item> { FakeItem1, FakeItem2, FakeItem3, FakeItem4 };
-            FakeTransactionTable = new List<Transaction> { FakeTransaction1 };
-
-
-            // User Inits
-            FakeUser1 = new User
-            {
-                Id = Guid.Parse("ac30925e-74b0-4526-a821-49578ed876ab"),
-                FirstName = "Marthew",
-                LastName = "Huemmel",
-                EmailAddress = "marthew.d.huemmel02@gmail.com",
-                Password = "password",
-                PhoneNumber = "1234567890",
-                RegisteredLocation = FakeLocation1
-            };
-
-            
             // Business Inits
             FakeBusiness1 = new Business 
             { 
@@ -64,16 +43,28 @@ namespace RetailRewardsApp.Core.Services
             FakeLocation1 = new Models.Location
             {
                 Id = Guid.Parse("6072a638-3a11-416c-bf8a-9343119d28df"),
-                Business = FakeBusiness1
+                Business = FakeBusiness1,
+                Title = "Tel Aviv"
             };
 
             FakeLocation2 = new Models.Location 
             { 
                 Id = Guid.Parse("41ff95b9-2537-4331-951a-6210409932b8"),
-                Business = FakeBusiness2 
+                Business = FakeBusiness2,
+                Title = "Broward County"
             };
 
-
+            // User Inits
+            FakeUser1 = new User
+            {
+                Id = Guid.Parse("ac30925e-74b0-4526-a821-49578ed876ab"),
+                FirstName = "Marthew",
+                LastName = "Huemmel",
+                EmailAddress = "marthew.d.huemmel02@gmail.com",
+                Password = "password",
+                PhoneNumber = "1234567890",
+                RegisteredLocationId = FakeLocation1.Id
+            };
 
             // Item / Inventory for Location Inits
             FakeItem1 = new Item
@@ -205,6 +196,14 @@ namespace RetailRewardsApp.Core.Services
                     isRead = false
                 }
             };
+
+
+            FakeUserTable = new List<User> { FakeUser1, FakeUser2 };
+            FakeBusinessTable = new List<Business> { FakeBusiness1, FakeBusiness2 };
+            FakeLocationTable = new List<Models.Location> { FakeLocation1, FakeLocation2 };
+            FakeOfferTable = new List<Offer> { FakeOffer1, FakeOffer2, FakeOffer3, FakeOffer4 };
+            FakeItemTable = new List<Item> { FakeItem1, FakeItem2, FakeItem3, FakeItem4 };
+            FakeTransactionTable = new List<Transaction> { FakeTransaction1 };
         }
     }
 }

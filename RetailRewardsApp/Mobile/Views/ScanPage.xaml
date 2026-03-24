@@ -8,5 +8,10 @@
             Text="Welcome to your QR code!"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+
+        <Label
+            Text="{Binding BindingUser.PhoneNumber, StringFormat='{0}'}"
+            />
+        
     </VerticalStackLayout>
 </ContentPage>

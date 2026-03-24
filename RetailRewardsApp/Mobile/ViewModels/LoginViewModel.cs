@@ -11,8 +11,7 @@ namespace RetailRewardsApp.Mobile.ViewModels
     public class LoginViewModel
     {
         // Service(s) and associated var(s)
-        UserSessionService UserSessionService = new UserSessionService();     
-        UserService UserService = new UserService();
+        private readonly SessionService SessionService;    
 
         // Binding vars
         public string Email { get; set; }
@@ -21,16 +20,17 @@ namespace RetailRewardsApp.Mobile.ViewModels
         // Command Inits
         public ICommand GoToControlCommand { get; }
 
-        public LoginViewModel(UserSessionService userSessionService) 
+        public LoginViewModel(SessionService sessionService) 
         {
-            UserSessionService = userSessionService;
+            SessionService = sessionService;
+
 
             GoToControlCommand = new Command(async () => await GoToControl());
         }
 
         private async Task GoToControl()
         {
-            if (UserSessionService.Login(Email, Password))
+            if (SessionService.Login(Email, Password))
             {
                 await Shell.Current.GoToAsync("//main");
             }

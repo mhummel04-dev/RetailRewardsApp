@@ -4,9 +4,10 @@ namespace RetailRewardsApp.Mobile.Views;
 
 public partial class MenuPage : ContentPage
 {
-	public MenuPage()
+	public MenuPage(MenuViewModel viewModel)
 	{
 		InitializeComponent();
-		BindingContext = new MenuViewModel();
-	}
+		BindingContext = viewModel;
+
+    }
 }

@@ -4,9 +4,9 @@ namespace RetailRewardsApp.Mobile.Views;
 
 public partial class OffersPage : ContentPage
 {
-	public OffersPage()
+	public OffersPage(OfferViewModel viewModel)
 	{
 		InitializeComponent();
-		BindingContext = new OfferViewModel();
+		BindingContext = viewModel;
 	}
 }

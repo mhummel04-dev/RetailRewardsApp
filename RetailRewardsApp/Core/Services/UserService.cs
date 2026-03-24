@@ -11,7 +11,7 @@ namespace RetailRewardsApp.Core.Services
 
         public User GetUserByEmail(string Email)
         {
-            User User = FakeDB.FakeUserTable.FirstOrDefault(i => i.Email == Email);
+            User User = FakeDB.FakeUserTable.FirstOrDefault(i => i.EmailAddress == Email);
             return User;
         }
 

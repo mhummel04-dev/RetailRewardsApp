@@ -5,7 +5,7 @@
              Title="HomePage">
     <VerticalStackLayout>
         <Label 
-            Text="Welcome to the Home page!"
+            Text="{Binding BindingUser.FirstName, StringFormat='Hello {0}!'}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
 

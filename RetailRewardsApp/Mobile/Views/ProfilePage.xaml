@@ -2,12 +2,63 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RetailRewardsApp.Mobile.Views.ProfilePage"
+             xmlns:models="RetailRewardsApp.Core.Models"
              Title="ProfilePage">
     <VerticalStackLayout>
         <Label 
             Text="Welcome to your profile!"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+
+        <Label>
+            <Label.Text>
+                <MultiBinding StringFormat="Name: {0} {1}">
+                    <Binding Path="BindingUser.FirstName"/>
+                    <Binding Path="BindingUser.LastName"/>
+                </MultiBinding>
+            </Label.Text>
+        </Label>
+
+        <Label
+            Text="{Binding BindingUser.EmailAddress, StringFormat='Email: {0}'}"
+        />
+
+        <Label
+            Text="{Binding BindingUser.Password, StringFormat='Password: {0}'}"
+        />
+
+        <Label
+            Text="{Binding BindingUser.Points, StringFormat='Points: {0}'}"
+        />
+
+
+        <CollectionView ItemsSource="{Binding BindingNotifications}" Margin="20">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Notification">
+                    <Frame HasShadow="True" Margin="0,0,0,10" Padding="10">
+                        <VerticalStackLayout>
+                            <Label Text="{Binding Header}" FontSize="18" FontAttributes="Bold" />
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <CollectionView ItemsSource="{Binding BindingTransactions}" Margin="20">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Transaction">
+                    <Frame HasShadow="True" Margin="0,0,0,10" Padding="10">
+                        <VerticalStackLayout>
+                            <Label Text="{Binding Business.Name}" FontSize="18" FontAttributes="Bold" />
+                            <Label Text="{Binding Location.Title}" FontSize="18" FontAttributes="Bold" />
+                            <Label Text="{Binding ItemsPurchased.Count}" FontSize="18" FontAttributes="Bold" />
+                            <Label Text="{Binding TotalSpent}" FontSize="18" FontAttributes="Bold" />
+                            <Label Text="{Binding PointsGained}" FontSize="18" FontAttributes="Bold" />
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
         <Button
             Text="Click here to edit your profile!"
