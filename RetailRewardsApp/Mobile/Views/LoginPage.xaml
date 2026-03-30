@@ -3,33 +3,43 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RetailRewardsApp.Mobile.Views.LoginPage">
 
-    <ScrollView>
-        <VerticalStackLayout
-            Padding="30,0"
-            Spacing="25">
-            <Label
-                Text="Login/Create Account"
-                Style="{StaticResource Headline}"
-                SemanticProperties.HeadingLevel="Level1" 
-            />
+    <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto" ColumnDefinitions="*" Padding="24">
 
+      <!--  <Image Grid.Row="0" Source="trademark.png" Aspect="AspectFit" HorizontalOptions="Start"/> 
+        for when i get my logo image made, but till then: -->
+        <Label Grid.Row="0"
+               Text="C Custom"
+               FontSize="16"
+               HorizontalOptions="Start"/>
 
-            <Entry 
-                Placeholder="Email"
-                Text="{Binding Email}"
-            />
+        <Label Grid.Row="1"
+               Text="BUSINESS"
+               FontSize="64"
+               FontAttributes="Bold"
+               Margin="0,160,0,64"
+               FontFamily="{StaticResource SelectedBusinessFont}"
+               HorizontalOptions="Center" />
 
-            <Entry 
-                Placeholder="Password"
-                Text="{Binding Password}"
-                IsPassword="True"
-            />
+        <Button Grid.Row="2"
+                Text="Login"
+                Command="{Binding LoginCommand}"
+                HeightRequest="50"
+                Margin="0,0,0,16"
+                />
 
-            <Button
-                Text="Login/Create Acct"
-                Command="{Binding GoToControlCommand}"
-            />
+        <Label Grid.Row="3"
+               Text="OR"
+               FontSize="16"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               Margin="0,0,0,16"/>
 
-        </VerticalStackLayout>
-    </ScrollView>
+        <Button Grid.Row="4"
+                Text="Sign up"
+                Command="{Binding SignUpCommand}"
+                HeightRequest="50"
+                Margin="0,0,0,16"/>
+
+    </Grid>
+    
 </ContentPage>

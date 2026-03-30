@@ -9,6 +9,10 @@
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <OnPlatform x:TypeArguments="x:String" x:Key="SelectedBusinessFont">
+                <On Platform="iOS" Value="OpenSansRegular" />
+                <On Platform="Android" Value="OpenSansRegular" />
+            </OnPlatform>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

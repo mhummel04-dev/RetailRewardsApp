@@ -156,3 +156,12 @@ proof of concept. Wakaka! Next task im thinking is either to continue data flow 
 or start getting UI going on the views with the data thats there now.
 
 
+3/30/2026
+- So Far: All main pages have data populating
+- Task: One of two or both
+	- Begin UI for Login and maybe Home
+	- Finish getting data populated to smaller/rest of the views
+
+- Success = eh
+- I've begun getting the login screen kind of how i want and planned out what i want for it nicely, but progress is slow a bit. 
+
