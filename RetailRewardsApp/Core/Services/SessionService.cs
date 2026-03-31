@@ -28,6 +28,13 @@ namespace RetailRewardsApp.Core.Services
             }
         }
 
+        public bool Login(bool ProviderValidation)
+        {
+            LoggedInUser = FakeDB.FakeUserTable[0];
+            RegisteredLocation = FakeDB.FakeLocationTable[0];
+            return true;
+        }
+
         public void Logout()
         {
             LoggedInUser = null;

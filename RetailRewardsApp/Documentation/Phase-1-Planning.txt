@@ -165,3 +165,11 @@ or start getting UI going on the views with the data thats there now.
 - Success = eh
 - I've begun getting the login screen kind of how i want and planned out what i want for it nicely, but progress is slow a bit. 
 
+3/31/2026
+- So Far: Login screen has been planned with general layout and UI effects, and has been started.
+- Task: Finish the Login screen, if its not as fancy as I want it to be yet thats okay but just the general idea.
+
+- Success = eh
+- You can get through it and it kinda resembles how i want it to, at least logging in anyways, 
+but i havent done sign up but it would be nearly the same pretty much
+
