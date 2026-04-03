@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RetailRewardsApp.Mobile.Views.TransactionDetailPage"
+             xmlns:models="RetailRewardsApp.Core.Models"
+             xmlns:vm="clr-namespace:RetailRewardsApp.Mobile.ViewModels"
+             x:DataType="vm:TransactionDetailViewModel"
+             Title="TransactionDetailPage">
+    
+    <VerticalStackLayout Padding="24" Spacing="16">
+        <Label Text="{Binding SelectedTransaction.Business.Name}" FontSize="32" FontAttributes="Bold" />
+        <Label Text="{Binding SelectedTransaction.Timestamp, StringFormat='{0:MMMM dd, yyyy \at HH:mm}'}" 
+           TextColor="Gray" FontSize="14" />
+
+        <BoxView HeightRequest="1" Color="LightGray" />
+
+        <HorizontalStackLayout Spacing="20">
+            <VerticalStackLayout>
+                <Label Text="Total Spent" FontSize="12" />
+                <Label Text="{Binding SelectedTransaction.TotalSpent, StringFormat='${0:F2}'}" 
+                   FontSize="24" FontAttributes="Bold" />
+            </VerticalStackLayout>
+            <VerticalStackLayout>
+                <Label Text="Points Gained" FontSize="12" />
+                <Label Text="{Binding SelectedTransaction.PointsGained}" 
+                   FontSize="24" FontAttributes="Bold" TextColor="Green" />
+            </VerticalStackLayout>
+        </HorizontalStackLayout>
+
+        <Label Text="Items Purchased" FontSize="20" FontAttributes="Bold" Margin="0,16,0,0" />
+        <CollectionView ItemsSource="{Binding ItemsPurchased}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:TransactionItem">
+                    <Grid ColumnDefinitions="*, Auto" Margin="0,4">
+                        <Label Grid.Column="0" Text="{Binding Name}" />
+                        <Label Grid.Column="1" Text="{Binding Price, StringFormat='${0:F2}'}" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Label Text="Offers Applied" FontSize="20" FontAttributes="Bold" Margin="0,16,0,0" 
+           IsVisible="{Binding SelectedTransaction.OffersUsed.Count, Converter={StaticResource CountToBool}}" />
+
+        <CollectionView ItemsSource="{Binding OffersUsed}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Offer">
+                    <Label Text="{Binding Description}" FontSize="14" TextColor="DarkSlateBlue" />
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>

@@ -83,7 +83,7 @@ namespace RetailRewardsApp.Mobile.ViewModels
 
         private async Task GoToHistory()
         {
-            await Shell.Current.GoToAsync(nameof(HistoryDetailPage));
+            await Shell.Current.GoToAsync(nameof(TransactionDetailPage));
         }
 
 

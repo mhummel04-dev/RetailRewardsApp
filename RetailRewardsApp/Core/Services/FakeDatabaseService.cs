@@ -63,6 +63,19 @@ namespace RetailRewardsApp.Core.Services
                 EmailAddress = "marthew.d.huemmel02@gmail.com",
                 Password = "password",
                 PhoneNumber = "1234567890",
+                Birthday = new DateTime(2004, 8, 3),
+                RegisteredLocationId = FakeLocation1.Id
+            };
+
+            FakeUser2 = new User
+            {
+                Id = Guid.Parse("2a711ffa-520e-41e4-9fb6-6f4047b1813e"),
+                FirstName = "Jarden",
+                LastName = "Goyd",
+                EmailAddress = "francisGod@gmail.com",
+                Password = "password",
+                PhoneNumber = "1234567890",
+                Birthday = new DateTime(2004, 3, 13),
                 RegisteredLocationId = FakeLocation1.Id
             };
 

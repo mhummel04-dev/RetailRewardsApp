@@ -7,7 +7,7 @@ namespace RetailRewardsApp.Core.Services
 {
     public class SessionService
     {
-        FakeDatabaseService FakeDB = new FakeDatabaseService();
+        public FakeDatabaseService FakeDB = new FakeDatabaseService();
         public User LoggedInUser { get; private set; }
         public Models.Location RegisteredLocation { get; private set; }
 

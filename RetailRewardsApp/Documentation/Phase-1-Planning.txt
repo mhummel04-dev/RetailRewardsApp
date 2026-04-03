@@ -173,3 +173,36 @@ or start getting UI going on the views with the data thats there now.
 - You can get through it and it kinda resembles how i want it to, at least logging in anyways, 
 but i havent done sign up but it would be nearly the same pretty much
 
+4/3/2026
+- So Far: Partial Login screen UI achieved, very basic at the moment.
+
+- Step Back - Overall Plan until 4/9
+	- Each page has a basic UI containing the main parts and positions of the end result
+	- Each page and its subsidaries has proper function and switch betweens
+
+	- General task range to complete each day (not super strict but lets try)
+		- 4/3 - Complete Login & Home UI, add functionality to Home subsidiaries, if not too exhausted maybe do UI for those
+			- Home Subsidiaries: NotificationDetailPage, HistoryDetailPage, ItemDetailPage
+
+		- 4/4 
+			- If UI for Home subsidiaries not completed, complete them & Scan maybe start on Menu
+			- Else, Complete Scan & Menu
+				- (Menu subsidiary is ItemDetailPage)
+		- 4/6 - Complete Menu & Deals, possibly Deals Subsidiary functionality (OfferDetailPage)
+		- 4/7 - Complete Deals Subsidiary UI if not done, Complete Profile
+		- 4/8 - Complete Profile Subsidiary (EditProfilePage)
+		- 4/9 - Final checks/extra day if needed
+
+- Thoughts for tasks after this series of tasks:
+	- QR Code API
+	- AI Suggestions API
+	- Improved UI and flair each screen
+
+- With all that said, task for today is:
+	- Complete Login & Home UI, at least add functionality for Home subsidiaries possibly add UI as well.
+
+- Success = true!
+- Login and Home are at a basic but satisfying point to me, and data/functionality propagates into home subsidiaries,
+but only for NotificationDetail and HistoryDetail (now TransactionDetail). ItemDetail still needs to be done but its fine for 
+tonight.
+

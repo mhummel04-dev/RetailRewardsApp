@@ -7,6 +7,8 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace RetailRewardsApp.Mobile.ViewModels
 {
@@ -15,78 +17,50 @@ namespace RetailRewardsApp.Mobile.ViewModels
     public enum LoginState
     {
         Start, 
-        Providers,
+        LoginProviders,
+        RegisterProviders,
         EmailLogin,
         EmailRegister
     }
 
 
-    public class LoginViewModel : INotifyPropertyChanged
+    public partial class LoginViewModel : ObservableObject
     {
         // Service(s) and associated var(s)
         private readonly SessionService _sessionService;
-        private LoginState _currentState = LoginState.Start;
+
 
         // Binding vars
-        private string _email { get; set; }
-        private string _password { get; set; }
+        [ObservableProperty]
+        private LoginState _currentState = LoginState.Start;
 
-        public string Email
-        {
-            get => _email;
-            set { _email = value; OnPropertyChanged(); }
-        }
+        [ObservableProperty]
+        private string _firstName, _lastName, _email, _password, _passwordVerified, _phoneNumber, _birthday;
 
-        public string Password
-        {
-            get => _password;
-            set { _password = value; OnPropertyChanged(); }
-        }
-        public LoginState CurrentState
-        {
-            get => _currentState;
-            set
-            {
-                if (_currentState != value)
-                {
-                    _currentState = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        
-        // Command Inits
-        public ICommand GoToHomeWithEmailCommand { get; }
-        public ICommand GoToHomeWithAppleCommand { get; }
-        public ICommand GoToHomeWithGoogleCommand { get; }
-        public ICommand ChangeStateCommand { get; }
-
+             
         public LoginViewModel(SessionService sessionService) 
         {
             _sessionService = sessionService;
-
-            ChangeStateCommand = new Command<LoginState>((newState) =>
-            {
-                CurrentState = newState;
-            });
-
-            GoToHomeWithEmailCommand = new Command(async () => await GoToHomeWithEmail());
-            GoToHomeWithAppleCommand = new Command(async () => await GoToHomeWithApple());
-            GoToHomeWithGoogleCommand = new Command(async () => await GoToHomeWithGoogle());
         }
 
+
+        // Command Implementation
+        [RelayCommand]
+        private void ChangeState(LoginState newState)
+        {
+            CurrentState = newState;
+        }
+
+        [RelayCommand]
         private async Task GoToHomeWithEmail()
         {
-            if (_sessionService.Login(Email, Password))
+            if (_sessionService.Login(_email, _password))
             {
                 await Shell.Current.GoToAsync("//main");
-            }
-            else
-            {
-                return;
-            }
+            } 
         }
 
+        [RelayCommand]
         private async Task GoToHomeWithApple()
         {
             var appleValidate = true;
@@ -94,12 +68,9 @@ namespace RetailRewardsApp.Mobile.ViewModels
             {
                 await Shell.Current.GoToAsync("//main");
             }
-            else
-            {
-                return;
-            }
         }
 
+        [RelayCommand]
         private async Task GoToHomeWithGoogle()
         {
             var googleValidate = true;
@@ -107,17 +78,27 @@ namespace RetailRewardsApp.Mobile.ViewModels
             {
                 await Shell.Current.GoToAsync("//main");
             }
-            else
-            {
-                return;
-            }
         }
 
-        // INotifyPropertyChanged invoker
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        [RelayCommand]
+        private async Task SignUp()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            User newUser = new User
+            {
+                FirstName = FirstName,
+                LastName = LastName,
+                EmailAddress = Email,
+                Password = Password,
+                PhoneNumber = PhoneNumber,
+                Birthday = DateTime.Parse(Birthday),
+                Points = 0
+            };
+            _sessionService.FakeDB.FakeUserTable.Add(newUser);
+
+            if (_sessionService.Login(newUser.EmailAddress, newUser.Password))
+            {
+                await Shell.Current.GoToAsync("//main");
+            }
         }
     }
 }

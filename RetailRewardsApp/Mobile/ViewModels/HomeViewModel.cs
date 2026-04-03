@@ -7,61 +7,59 @@ using System.Windows.Input;
 using RetailRewardsApp.Core.Services;
 using RetailRewardsApp.Mobile.Views;
 using RetailRewardsApp.Core.Models;
+using CommunityToolkit.Mvvm.ComponentModel;
+using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace RetailRewardsApp.Mobile.ViewModels
 {
-    public class HomeViewModel : INotifyPropertyChanged
+    public partial class HomeViewModel : ObservableObject
     {
         // Service(s) and associated var(s)
-        private readonly SessionService SessionService;
+        private readonly SessionService _sessionService;
+        [ObservableProperty]
         private User _user;
+        [ObservableProperty]
+        private ObservableCollection<Notification> _notifications;
+        [ObservableProperty]
+        private ObservableCollection<Transaction> _purchaseHistory;
 
 
-        // Command Declarations
-        public ICommand GoToNotificationCommand { get; }
-        public ICommand GoToHistoryCommand { get; }
-
-        
-        // Binding Variables
-        public User BindingUser { get => _user; set
-            {
-                if (_user != value)
-                {
-                    _user = value;
-                    OnPropertyChanged();
-                }
-            } 
-        }
 
         public HomeViewModel(SessionService sessionService) 
         {
-            SessionService = sessionService;
-            BindingUser = SessionService.LoggedInUser;
-
-
-            GoToNotificationCommand = new Command(async () => await GoToNotification());
-            GoToHistoryCommand = new Command(async () => await GoToHistory());
+            _sessionService = sessionService;
+            _user = _sessionService.LoggedInUser;
+            _notifications = new ObservableCollection<Notification>(_user.Notifications);
+            _purchaseHistory = new ObservableCollection<Transaction>(_user.Transactions);
         }
 
 
-        // Navigation Functions
-        private async Task GoToNotification()
+        // Command Implementation
+        [RelayCommand]
+        private async Task GoToNotification(Notification selectedNotification)
         {
-            await Shell.Current.GoToAsync(nameof(NotificationDetailPage));
+            if (selectedNotification == null) { return; }
+
+            var navigationParameter = new Dictionary<string, object>
+            {
+                { "SelectedNotification", selectedNotification }
+            };
+
+            await Shell.Current.GoToAsync(nameof(NotificationDetailPage), navigationParameter);
         }
 
-        private async Task GoToHistory()
+        [RelayCommand]
+        private async Task GoToTransaction(Transaction selectedTransaction)
         {
-            await Shell.Current.GoToAsync(nameof(HistoryDetailPage));
-        }
+            if (selectedTransaction == null) { return; }
 
+            var navigationParameter = new Dictionary<string, object>
+            {
+                { "SelectedTransaction", selectedTransaction }
+            };
 
-
-        // INotifyPropertyChanged invoker
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            await Shell.Current.GoToAsync(nameof(TransactionDetailPage), navigationParameter);
         }
     }
 }

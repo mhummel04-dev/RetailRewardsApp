@@ -66,6 +66,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0" />
 	</ItemGroup>
@@ -84,8 +85,8 @@
 	  <Compile Update="Mobile\Views\ItemDetailPage.xaml.cs">
 	    <DependentUpon>ItemDetailPage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Mobile\Views\HistoryDetailPage.xaml.cs">
-	    <DependentUpon>HistoryDetailPage.xaml</DependentUpon>
+	  <Compile Update="Mobile\Views\TransactionDetailPage.xaml.cs">
+	    <DependentUpon>TransactionDetailPage.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Mobile\Views\NotificationDetailPage.xaml.cs">
 	    <DependentUpon>NotificationDetailPage.xaml</DependentUpon>
@@ -120,7 +121,7 @@
 	  <MauiXaml Update="Mobile\Views\ItemDetailPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Mobile\Views\HistoryDetailPage.xaml">
+	  <MauiXaml Update="Mobile\Views\TransactionDetailPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Mobile\Views\NotificationDetailPage.xaml">
