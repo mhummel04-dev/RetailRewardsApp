@@ -160,8 +160,12 @@ namespace RetailRewardsApp.Core.Services
                 PointCost = 1500
             };
 
-            FakeLocation1.Offers = new List<Offer>() { FakeOffer1, FakeOffer2 };
+            FakeLocation1.Offers = new List<Offer>() { FakeOffer1, FakeOffer2, FakeOffer3 };
             FakeLocation2.Offers = new List<Offer>() { FakeOffer3, FakeOffer4 };
+            FakeItem1.Offers = new List<Offer>() { FakeOffer1, FakeOffer2, FakeOffer3 };
+            FakeItem2.Offers = new List<Offer>() { FakeOffer1, FakeOffer3 };
+            FakeItem3.Offers = new List<Offer>() { FakeOffer3 };
+            FakeItem4.Offers = new List<Offer>() { FakeOffer3, FakeOffer4 };
 
 
 

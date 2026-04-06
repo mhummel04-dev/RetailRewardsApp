@@ -35,6 +35,8 @@ namespace RetailRewardsApp
             builder.Services.AddTransient<NotificationDetailPage>();
             builder.Services.AddTransient<TransactionDetailViewModel>();
             builder.Services.AddTransient<TransactionDetailPage>();
+            builder.Services.AddTransient<ItemDetailPage>();
+            builder.Services.AddTransient<ItemDetailViewModel>();
 
 
 #if DEBUG

@@ -31,10 +31,25 @@
         <CollectionView ItemsSource="{Binding ItemsPurchased}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:TransactionItem">
-                    <Grid ColumnDefinitions="*, Auto" Margin="0,4">
-                        <Label Grid.Column="0" Text="{Binding Name}" />
-                        <Label Grid.Column="1" Text="{Binding Price, StringFormat='${0:F2}'}" />
-                    </Grid>
+                    <Border Stroke="Transparent" 
+                    Padding="8,4" 
+                    Margin="0,2">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer 
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TransactionDetailViewModel}}, Path=GoToItemDetailCommand}" 
+                        CommandParameter="{Binding ItemId}" />
+                        </Border.GestureRecognizers>
+
+                        <Grid ColumnDefinitions="*, Auto">
+                            <Label Grid.Column="0" 
+                           Text="{Binding NameAtPurchase}" 
+                           VerticalOptions="Center" />
+                            <Label Grid.Column="1" 
+                           Text="{Binding PriceAtPurchase, StringFormat='${0:F2}'}" 
+                           FontAttributes="Bold"
+                           VerticalOptions="Center" />
+                        </Grid>
+                    </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

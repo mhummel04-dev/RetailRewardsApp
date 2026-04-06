@@ -1,61 +1,51 @@
-﻿using RetailRewardsApp.Core.Models;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using RetailRewardsApp.Core.Models;
 using RetailRewardsApp.Core.Services;
 using RetailRewardsApp.Mobile.Views;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
-using System.Windows.Input;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
 
 namespace RetailRewardsApp.Mobile.ViewModels
 {
-    public class MenuViewModel : INotifyPropertyChanged
+    public partial class MenuViewModel : ObservableObject
     {
         // Service(s) and associated var(s)
-        private readonly SessionService SessionService;
-        private Core.Models.Location Location;
-        private ObservableCollection<Item> _menu;
+        private readonly SessionService _sessionService;
+        [ObservableProperty]
+        private Core.Models.Location _currentLocation;
+        [ObservableProperty]
+        private ObservableCollection<Item> _menuItems;
 
 
-        // Command Declarations
-        public ICommand GoToItemDetailCommand { get; }
+
+        public MenuViewModel(SessionService sessionService)
+        {
+            _sessionService = sessionService;
+            
+            CurrentLocation = _sessionService.RegisteredLocation;
+
+            MenuItems = new ObservableCollection<Item>(CurrentLocation.Inventory);
+        }
 
 
-        // Binding Variables
-        public ObservableCollection<Item> BindingMenu { get =>  _menu; set
+        // Command Implementation
+        [RelayCommand]
+        private async Task GoToItemDetail(Item selectedItem)
+        {
+            if (selectedItem == null) return;
+
+            var navigationParameter = new Dictionary<string, object>
             {
-                if (_menu != value)
-                {
-                    _menu = value;
-                    OnPropertyChanged();
-                }
-            } 
+                { "SelectedItem", selectedItem }
+            };
+
+            await Shell.Current.GoToAsync(nameof(ItemDetailPage), navigationParameter);
         }
 
-        public MenuViewModel(SessionService sessionService) 
+        [RelayCommand]
+        private async Task ChangeLocation()
         {
-            SessionService = sessionService;
-            Location = SessionService.RegisteredLocation;
-            BindingMenu = new ObservableCollection<Item>(Location.Inventory);
-
-
-            GoToItemDetailCommand = new Command(async () => await GoToItemDetail());
-        }
-
-        private async Task GoToItemDetail()
-        {
-            await Shell.Current.GoToAsync(nameof(ItemDetailPage));
-        }
-
-
-        // INotifyPropertyChanged invoker
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            await Task.CompletedTask;
         }
     }
 }

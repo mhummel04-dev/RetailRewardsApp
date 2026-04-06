@@ -173,6 +173,9 @@ or start getting UI going on the views with the data thats there now.
 - You can get through it and it kinda resembles how i want it to, at least logging in anyways, 
 but i havent done sign up but it would be nearly the same pretty much
 
+
+
+
 4/3/2026
 - So Far: Partial Login screen UI achieved, very basic at the moment.
 
@@ -206,3 +209,17 @@ but i havent done sign up but it would be nearly the same pretty much
 but only for NotificationDetail and HistoryDetail (now TransactionDetail). ItemDetail still needs to be done but its fine for 
 tonight.
 
+
+
+4/6/2026
+- So Far: Completed Login and Home basic UI and functionality into Notification & Transaction Detail
+- Skipped 4/4 due to wanting to draw instead, but that was the point of the free day!
+
+- Task today:
+	- Complete functionality & basic UI for ItemDetail, Scan, and begin or complete Menu
+
+
+- Success = true!
+- ItemDetail now seems to have full functionality and UI set up, same as Scan and Menu, menu is able to navigate into ItemDetail 
+very well, as well as TransactionDetail navigating into ItemDetail. Wakaka! 
+- Next task should be Deals, OfferDetail, and Profile.

@@ -2,11 +2,59 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RetailRewardsApp.Mobile.Views.ItemDetailPage"
+             xmlns:models="clr-namespace:RetailRewardsApp.Core.Models"
+             xmlns:vm="clr-namespace:RetailRewardsApp.Mobile.ViewModels"
              Title="ItemDetailPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="This is a detailed view of a specific item!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+
+    <Grid RowDefinitions="Auto, *" Padding="24" RowSpacing="16">
+
+        <Grid Grid.Row="0" ColumnDefinitions="Auto, *" ColumnSpacing="16">
+
+            <Image Source="your_coffee_image.png"
+                   Grid.Column="0"
+                   WidthRequest="150"
+                   HeightRequest="150"
+                   Aspect="AspectFit"
+                   VerticalOptions="Center" />
+
+            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                <Label Text="{Binding SelectedItem.Name}"
+                       FontSize="24"
+                       FontAttributes="Bold"
+                       Margin="0,0,0,8" />
+                <Label Text="{Binding SelectedItem.Price, StringFormat='${0:F2}'}"
+                       FontSize="18"
+                       Margin="0,0,0,8" />
+                <Label Text="{Binding SelectedItem.Stock, StringFormat='Stock: {0}'}"
+                       FontSize="14"
+                       Margin="0,0,0,8" />
+            </VerticalStackLayout>
+        </Grid>
+
+        <VerticalStackLayout Grid.Row="1">
+
+            <Label Text="{Binding SelectedItem.Description}"
+                   LineBreakMode="WordWrap"
+                   FontSize="16"
+                   Margin="0,16,0,16" />
+
+            <Label Text="Offers:"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   Margin="0,0,0,8" />
+
+            <CollectionView ItemsSource="{Binding Offers}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Offer">
+                        <Label Text="{Binding Description}"
+                               FontSize="14"
+                               TextColor="DarkCyan"
+                               Margin="0,4,0,4" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+
+    </Grid>
 </ContentPage>

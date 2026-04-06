@@ -3,31 +3,67 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RetailRewardsApp.Mobile.Views.MenuPage"
              xmlns:models="RetailRewardsApp.Core.Models"
+             xmlns:vm="clr-namespace:RetailRewardsApp.Mobile.ViewModels"
              Title="MenuPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to the Menu!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+    
+    <Grid RowDefinitions="Auto, *" Padding="0">
 
-        <CollectionView ItemsSource="{Binding BindingMenu}" Margin="20">
+        <Border Grid.Row="0" 
+            BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}"
+            Padding="16,10"
+            StrokeThickness="0,0,0,1">
+            <Border.StrokeShape>
+                <Line HeightRequest="1" />
+            </Border.StrokeShape>
+
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="8">
+                <Label Text="{Binding CurrentLocation.Name, FallbackValue='Select Location'}"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   VerticalOptions="Center" />
+
+                <ImageButton Source="chevron_down.png" 
+                         Command="{Binding ChangeLocationCommand}"
+                         HeightRequest="20"
+                         VerticalOptions="Center" />
+            </HorizontalStackLayout>
+        </Border>
+
+        <CollectionView Grid.Row="1" 
+                    ItemsSource="{Binding MenuItems}"
+                    SelectionMode="None"
+                    Margin="16,8">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:Item">
-                    <Frame HasShadow="True" Margin="0,0,0,10" Padding="10">
-                        <VerticalStackLayout>
-                            <Label Text="{Binding Name}" FontSize="18" FontAttributes="Bold" />
-                            <Label Text="{Binding Price, StringFormat='${0}'}" FontSize="14"/>
-                            <Label Text="{Binding Stock, StringFormat='Amt: {0}'}" />
-                        </VerticalStackLayout>
-                    </Frame>
+                    <Border Stroke="Gray" 
+                        StrokeThickness="1" 
+                        Margin="0,0,0,12" 
+                        Padding="12"
+                        StrokeShape="RoundRectangle 8">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer 
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MenuViewModel}}, Path=GoToItemDetailCommand}" 
+                            CommandParameter="{Binding .}"/>
+                        </Border.GestureRecognizers>
+
+                        <Grid ColumnDefinitions="Auto, *" ColumnSpacing="12">
+                            <Image Grid.Column="0" 
+                               Source="{Binding ImageUrl}" 
+                               WidthRequest="60" 
+                               HeightRequest="60"
+                               Aspect="AspectFit"/>
+
+                            <HorizontalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="5">
+                                <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="16"/>
+                                <Label Text="|" TextColor="Gray"/>
+                                <Label Text="{Binding Price, StringFormat='${0:F2}'}" FontSize="16"/>
+                                <Label Text="|" TextColor="Gray"/>
+                                <Label Text="{Binding Stock}" FontSize="16"/>
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-                        
-        <Button
-            Text="Click here to see a detailed view of an item!"
-            Command="{Binding GoToItemDetailCommand}"
-        />
-        
-    </VerticalStackLayout>
+    </Grid>
 </ContentPage>
