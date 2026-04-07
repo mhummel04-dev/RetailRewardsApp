@@ -2,11 +2,71 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RetailRewardsApp.Mobile.Views.OfferDetailPage"
+             xmlns:models="clr-namespace:RetailRewardsApp.Core.Models"
+             xmlns:vm="clr-namespace:RetailRewardsApp.Mobile.ViewModels"
              Title="OfferDetailPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="This is a detailed view of an offer!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+
+    <Grid RowDefinitions="Auto, *" Padding="24" RowSpacing="16">
+
+        <Grid Grid.Row="0" ColumnDefinitions="Auto, *" ColumnSpacing="16">
+
+            <Image Source="your_coffee_image.png"
+                   Grid.Column="0"
+                   WidthRequest="150"
+                   HeightRequest="150"
+                   Aspect="AspectFit"
+                   VerticalOptions="Center" />
+
+            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                <Label Text="{Binding SelectedOffer.Description}"
+                       FontSize="24"
+                       FontAttributes="Bold"
+                       Margin="0,0,0,8" />
+                <Label Text="{Binding SelectedOffer.PointCost, StringFormat='{0}'}"
+                       FontSize="18"
+                       Margin="0,0,0,8" />
+            </VerticalStackLayout>
+        </Grid>
+
+
+        <CollectionView Grid.Row="1" 
+                        ItemsSource="{Binding Items}"
+                        SelectionMode="None"
+                        Margin="16,8">
+            
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Item">
+                    <Border Stroke="Gray" 
+                            StrokeThickness="1" 
+                            Margin="0,0,0,12" 
+                            Padding="12"
+                            StrokeShape="RoundRectangle 8">
+                        
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:OfferDetailViewModel}}, Path=GoToItemDetailCommand}" 
+                                CommandParameter="{Binding .}"/>
+                        </Border.GestureRecognizers>
+
+                        <Grid ColumnDefinitions="Auto, *" ColumnSpacing="12">
+                            <Image Grid.Column="0" 
+                                   Source="{Binding ImageUrl}" 
+                                   WidthRequest="60" 
+                                   HeightRequest="60"
+                                   Aspect="AspectFit"/>
+
+                            <HorizontalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="5">
+                                <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="16"/>
+                                <Label Text="|" TextColor="Gray"/>
+                                <Label Text="{Binding Price, StringFormat='${0:F2}'}" FontSize="16"/>
+                                <Label Text="|" TextColor="Gray"/>
+                                <Label Text="{Binding Stock}" FontSize="16"/>
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
 </ContentPage>

@@ -1,61 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using RetailRewardsApp.Core.Models;
 using RetailRewardsApp.Core.Services;
 using RetailRewardsApp.Mobile.Views;
-using RetailRewardsApp.Core.Models;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
 
 namespace RetailRewardsApp.Mobile.ViewModels
 {
-    public class OfferViewModel
+    public partial class OfferViewModel : ObservableObject
     {
         // Service(s) and associated var(s)
-        private readonly SessionService SessionService;
-        private Core.Models.Location Location;
+        private readonly SessionService _sessionService;
+        [ObservableProperty]
+        private Core.Models.Location _location;
+        [ObservableProperty]
         private ObservableCollection<Offer> _offers;
 
+        public OfferViewModel(SessionService sessionService)
+        {
+            _sessionService = sessionService;
 
-        // Command Declarations
-        public ICommand GoToOfferDetailCommand { get; }
+            Location = _sessionService.RegisteredLocation;
+            Offers = new ObservableCollection<Offer>(Location.Offers);
+        }
 
 
-        // Binding Variables
-        public ObservableCollection<Offer> BindingOffers { get =>  _offers; set
+
+        // Command Implementation
+        [RelayCommand]
+        private async Task GoToOfferDetail(Offer selectedOffer)
+        {
+            if (selectedOffer == null) return;
+
+            var navigationParameter = new Dictionary<string, object>
             {
-                if (_offers != value)
-                {
-                    _offers = value;
-                    OnPropertyChanged();
-                }
-            } 
-        }
+                { "SelectedOffer", selectedOffer }
+            };
 
-        public OfferViewModel(SessionService sessionService) 
-        {
-
-            SessionService = sessionService;
-            Location = SessionService.RegisteredLocation;
-            BindingOffers = new ObservableCollection<Offer>(Location.Offers);
-
-
-            GoToOfferDetailCommand = new Command(async () => await GoToOfferDetail());
-        }
-
-        private async Task GoToOfferDetail()
-        {
-            await Shell.Current.GoToAsync(nameof(OfferDetailPage));
-        }
-
-
-        // INotifyPropertyChanged invoker
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            await Shell.Current.GoToAsync(nameof(OfferDetailPage), navigationParameter);
         }
     }
 }

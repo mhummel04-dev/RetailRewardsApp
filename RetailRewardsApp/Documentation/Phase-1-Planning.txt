@@ -223,3 +223,16 @@ tonight.
 - ItemDetail now seems to have full functionality and UI set up, same as Scan and Menu, menu is able to navigate into ItemDetail 
 very well, as well as TransactionDetail navigating into ItemDetail. Wakaka! 
 - Next task should be Deals, OfferDetail, and Profile.
+
+
+
+4/7/2026
+- So Far: Completed Home, Scan, and Menu and their subsidiaries
+
+- Task Today:
+	- Deals screen and subsidiary (OfferDetail), possibly Profile (at least maybe functionality)
+
+
+- Success = Mostly
+- Deals screen and subsidiary is complete, but i didnt get to profile. But navigation between offer, offer detail, and item detail
+is good. Next time we finish Profile and thats all i wanted to do before I left for Tampa on 4/9.
