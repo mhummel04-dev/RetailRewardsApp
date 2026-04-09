@@ -2,11 +2,66 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RetailRewardsApp.Mobile.Views.EditProfilePage"
-             Title="EditProfilePage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Go ahead and edit your profile!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             xmlns:vm="clr-namespace:RetailRewardsApp.Mobile.ViewModels"
+             x:DataType="vm:EditProfileViewModel"
+             Title="Edit Profile">
+
+    <ScrollView Padding="20">
+        <VerticalStackLayout Spacing="20">
+            
+            <Label Text="Update Your Information" 
+                   FontSize="24" 
+                   FontAttributes="Bold" 
+                   HorizontalOptions="Center" 
+                   Margin="0,0,0,10"/>
+
+            <VerticalStackLayout Spacing="5">
+                <Label Text="First Name" FontAttributes="Bold" />
+                <Entry Text="{Binding FirstName}" Placeholder="Enter First Name" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Last Name" FontAttributes="Bold" />
+                <Entry Text="{Binding LastName}" Placeholder="Enter Last Name" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Email Address" FontAttributes="Bold" />
+                <Entry Text="{Binding Email}" 
+                       Placeholder="email@example.com" 
+                       Keyboard="Email" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="5">
+                <Label Text="New Password" FontAttributes="Bold" />
+                <Entry Text="{Binding Password}" 
+                       Placeholder="••••••••" 
+                       IsPassword="True" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Phone Number" FontAttributes="Bold" />
+                <Entry Text="{Binding PhoneNumber}" 
+                       Placeholder="(555) 555-5555" 
+                       Keyboard="Telephone" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Birthday" FontAttributes="Bold" />
+                <Entry Text="{Binding Birthday}" 
+                       Placeholder="MM/DD/YYYY" />
+                <Label Text="Format: MM/DD/YYYY" FontSize="10" TextColor="Gray" />
+            </VerticalStackLayout>
+
+            <Button Text="Save Changes" 
+                    Command="{Binding SaveEditsCommand}"
+                    HeightRequest="50"
+                    CornerRadius="25"
+                    Margin="0,20,0,0"
+                    BackgroundColor="{StaticResource Primary}"
+                    TextColor="White"
+                    FontAttributes="Bold" />
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

@@ -30,10 +30,11 @@ namespace RetailRewardsApp.Mobile.ViewModels
         private readonly SessionService _sessionService;
 
 
-        // Binding vars
+        // Binding variable(s)
         [ObservableProperty]
         private LoginState _currentState = LoginState.Start;
 
+        // XAML variable(s)
         [ObservableProperty]
         private string _firstName, _lastName, _email, _password, _passwordVerified, _phoneNumber, _birthday;
 

@@ -60,7 +60,16 @@
         <CollectionView ItemsSource="{Binding OffersUsed}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:Offer">
-                    <Label Text="{Binding Description}" FontSize="14" TextColor="DarkSlateBlue" />
+                    <Border Stroke="Transparent" 
+                     Padding="8,4" 
+                     Margin="0,2">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer 
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TransactionDetailViewModel}}, Path=GoToOfferDetailCommand}" 
+                        CommandParameter="{Binding .}" />
+                        </Border.GestureRecognizers>
+                        <Label Text="{Binding Description}" FontSize="14" TextColor="DarkSlateBlue" />
+                    </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

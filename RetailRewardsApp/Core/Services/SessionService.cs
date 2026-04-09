@@ -39,5 +39,12 @@ namespace RetailRewardsApp.Core.Services
         {
             LoggedInUser = null;
         }
+
+        public bool EditUser(User changedUser)
+        {
+            LoggedInUser = changedUser;
+            if (LoggedInUser == changedUser) return true;
+            else return false;
+        }
     }
 }

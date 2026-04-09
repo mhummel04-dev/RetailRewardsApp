@@ -15,6 +15,7 @@ namespace RetailRewardsApp
             Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
             Routing.RegisterRoute(nameof(OfferDetailPage), typeof(OfferDetailPage));
             Routing.RegisterRoute(nameof(TransactionDetailPage), typeof(TransactionDetailPage));
+            Routing.RegisterRoute(nameof(ProfilePage), typeof(ProfilePage));
 
         }
     }

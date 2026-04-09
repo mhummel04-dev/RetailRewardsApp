@@ -1,97 +1,71 @@
-﻿using RetailRewardsApp.Core.Models;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using RetailRewardsApp.Core.Models;
 using RetailRewardsApp.Core.Services;
 using RetailRewardsApp.Mobile.Views;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Windows.Input;
 
 namespace RetailRewardsApp.Mobile.ViewModels
 {
-    public class ProfileViewModel
+    public partial class ProfileViewModel : ObservableObject
     {
-        //Service(s) and associated var(s)
-        private readonly SessionService SessionService;
+        // Service(s) and associated var(s)
+        private readonly SessionService _sessionService;
+        [ObservableProperty]
         private User _user;
+        [ObservableProperty]
         private ObservableCollection<Transaction> _transactions;
+        [ObservableProperty]
         private ObservableCollection<Notification> _notifications;
 
-        // Command Declarations
-        public ICommand GoToEditProfileCommand { get; }
-        public ICommand GoToNotificationCommand { get; }
-        public ICommand GoToHistoryCommand { get; }
+        // XAML variable(s)
+        [ObservableProperty]
+        private string _fullName;
 
-
-        // Binding Variables
-        public User BindingUser { get => _user; set
-            {
-                if (_user != value)
-                {
-                    _user = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public ObservableCollection<Transaction> BindingTransactions { get =>  _transactions; set
-            {
-                if (_transactions != value)
-                {
-                    _transactions = value;
-                    OnPropertyChanged();
-                }
-            } 
-        }
-
-        public ObservableCollection<Notification> BindingNotifications { get => _notifications; set
-            {
-                if (_notifications != value)
-                {
-                    _notifications = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public ProfileViewModel(SessionService sessionService) 
+        public ProfileViewModel(SessionService sessionService)
         {
+            _sessionService = sessionService;
 
-            SessionService = sessionService;
-            BindingUser = SessionService.LoggedInUser;
-            BindingTransactions = new ObservableCollection<Transaction>(BindingUser.Transactions);
-            BindingNotifications = new ObservableCollection<Notification>(BindingUser.Notifications);
+            User = _sessionService.LoggedInUser;
+            Transactions = new ObservableCollection<Transaction>(User.Transactions);
+            Notifications = new ObservableCollection<Notification>(User.Notifications);
 
-
-            GoToEditProfileCommand = new Command(async () => await GoToEditProfile());
-            GoToNotificationCommand = new Command(async () => await GoToNotification());
-            GoToHistoryCommand = new Command(async () => await GoToHistory());
-
+            FullName = $"{User.FirstName} {User.LastName}";
         }
 
+
+
+        // Command Implementation
+        [RelayCommand]
         private async Task GoToEditProfile()
         {
             await Shell.Current.GoToAsync(nameof(EditProfilePage));
         }
 
-        private async Task GoToNotification()
+        [RelayCommand]
+        private async Task GoToNotification(Notification selectedNotification)
         {
-            await Shell.Current.GoToAsync(nameof(NotificationDetailPage));
+            if (selectedNotification == null) return;
+
+            var navParam = new Dictionary<string, object>
+            {
+                { "SelectedNotification", selectedNotification }
+            };
+
+            await Shell.Current.GoToAsync(nameof(NotificationDetailPage), navParam);
         }
 
-        private async Task GoToHistory()
+        [RelayCommand]
+        private async Task GoToTransaction(Transaction selectedTransaction)
         {
-            await Shell.Current.GoToAsync(nameof(TransactionDetailPage));
-        }
+            if (selectedTransaction == null) return;
 
+            var navParam = new Dictionary<string, object>
+            {
+                { "SelectedTransaction", selectedTransaction }
+            };
 
-        // INotifyPropertyChanged invoker
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            await Shell.Current.GoToAsync(nameof(TransactionDetailPage), navParam);
         }
     }
-}       
+}

@@ -48,5 +48,18 @@ namespace RetailRewardsApp.Mobile.ViewModels
             
         }
 
+        [RelayCommand]
+        private async Task GoToOfferDetail(Offer selectedOffer)
+        {
+            if (selectedOffer == null) return;
+
+            var navigationParameter = new Dictionary<string, object>
+            {
+                { "SelectedOffer", selectedOffer }
+            };
+
+            await Shell.Current.GoToAsync(nameof(OfferDetailPage), navigationParameter);
+        }
+
     }
 }

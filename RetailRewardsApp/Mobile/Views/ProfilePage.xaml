@@ -2,78 +2,135 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RetailRewardsApp.Mobile.Views.ProfilePage"
-             xmlns:models="RetailRewardsApp.Core.Models"
-             Title="ProfilePage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to your profile!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+             xmlns:vm="clr-namespace:RetailRewardsApp.Mobile.ViewModels"
+             xmlns:models="clr-namespace:RetailRewardsApp.Core.Models"
+             x:DataType="vm:ProfileViewModel"
+             Title="Profile">
 
-        <Label>
-            <Label.Text>
-                <MultiBinding StringFormat="Name: {0} {1}">
-                    <Binding Path="BindingUser.FirstName"/>
-                    <Binding Path="BindingUser.LastName"/>
-                </MultiBinding>
-            </Label.Text>
-        </Label>
+    <ScrollView Padding="20">
+        <VerticalStackLayout Spacing="24">
 
-        <Label
-            Text="{Binding BindingUser.EmailAddress, StringFormat='Email: {0}'}"
-        />
+            <Border Stroke="Gray" 
+                    StrokeThickness="1" 
+                    Padding="16" 
+                    StrokeShape="RoundRectangle 12">
 
-        <Label
-            Text="{Binding BindingUser.Password, StringFormat='Password: {0}'}"
-        />
+                <Grid ColumnDefinitions="*, Auto" RowDefinitions="Auto">
 
-        <Label
-            Text="{Binding BindingUser.Points, StringFormat='Points: {0}'}"
-        />
+                    <VerticalStackLayout Grid.Column="0" Spacing="4">
+                        <Label Text="{Binding FullName}" 
+                               FontSize="28" 
+                               FontAttributes="Bold" 
+                               Margin="0,0,0,8" />
 
+                        <Label Text="{Binding User.Points, StringFormat='Points: {0}'}" 
+                               FontSize="16" />
 
-        <CollectionView ItemsSource="{Binding BindingNotifications}" Margin="20">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:Notification">
-                    <Frame HasShadow="True" Margin="0,0,0,10" Padding="10">
-                        <VerticalStackLayout>
-                            <Label Text="{Binding Header}" FontSize="18" FontAttributes="Bold" />
-                        </VerticalStackLayout>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                        <Label Text="{Binding User.Birthday, StringFormat='DOB: {0:D}'}" 
+                               FontSize="16" />
 
-        <CollectionView ItemsSource="{Binding BindingTransactions}" Margin="20">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:Transaction">
-                    <Frame HasShadow="True" Margin="0,0,0,10" Padding="10">
-                        <VerticalStackLayout>
-                            <Label Text="{Binding Business.Name}" FontSize="18" FontAttributes="Bold" />
-                            <Label Text="{Binding Location.Title}" FontSize="18" FontAttributes="Bold" />
-                            <Label Text="{Binding ItemsPurchased.Count}" FontSize="18" FontAttributes="Bold" />
-                            <Label Text="{Binding TotalSpent}" FontSize="18" FontAttributes="Bold" />
-                            <Label Text="{Binding PointsGained}" FontSize="18" FontAttributes="Bold" />
-                        </VerticalStackLayout>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                        <Label Text="{Binding User.EmailAddress, StringFormat='Email: {0}'}" 
+                               FontSize="16" />
+                    </VerticalStackLayout>
 
-        <Button
-            Text="Click here to edit your profile!"
-            Command="{Binding GoToEditProfileCommand}"
-        />
+                    <Button Grid.Column="1" 
+                            Text="Edit Profile" 
+                            Command="{Binding GoToEditProfileCommand}"
+                            VerticalOptions="Start" 
+                            Padding="12,0"
+                            HeightRequest="40"
+                            CornerRadius="20"
+                            BackgroundColor="Transparent"
+                            TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                            BorderColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                            BorderWidth="1"/>
+                </Grid>
+            </Border>
 
-        <Button
-            Text="Click here to see a detailed view of a notification!"
-            Command="{Binding GoToNotificationCommand}"
-        />
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Notifications" 
+                       FontSize="22" 
+                       FontAttributes="Bold" 
+                       Margin="8,0,0,0"/>
 
-        <Button
-            Text="Click here to see a detailed view of a previous transaction!"
-            Command="{Binding GoToHistoryCommand}"
-        />
+                <CollectionView ItemsSource="{Binding Notifications}"
+                                SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Notification">
 
-    </VerticalStackLayout>
+                            <Border Stroke="Gray" 
+                                    StrokeThickness="1" 
+                                    Margin="0,0,0,10" 
+                                    Padding="16"
+                                    StrokeShape="RoundRectangle 8">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ProfileViewModel}}, Path=GoToNotificationCommand}" 
+                                        CommandParameter="{Binding .}"/>
+                                </Border.GestureRecognizers>
+
+                                <Grid ColumnDefinitions="*, Auto">
+                                    <Label Grid.Column="0" 
+                                           Text="{Binding Header}" 
+                                           FontAttributes="Bold" 
+                                           FontSize="16"/>
+
+                                    <Label Grid.Column="1" 
+                                           Text="{Binding Timestamp, StringFormat='{0:M/dd}'}" 
+                                           TextColor="Gray" 
+                                           FontSize="12" 
+                                           VerticalOptions="Center"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Purchase History" 
+                       FontSize="22" 
+                       FontAttributes="Bold" 
+                       Margin="8,0,0,0"/>
+
+                <CollectionView ItemsSource="{Binding Transactions}"
+                                SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Transaction">
+
+                            <Border Stroke="Gray" 
+                                    StrokeThickness="1" 
+                                    Margin="0,0,0,10" 
+                                    Padding="16"
+                                    StrokeShape="RoundRectangle 8">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ProfileViewModel}}, Path=GoToTransactionCommand}" 
+                                        CommandParameter="{Binding .}"/>
+                                </Border.GestureRecognizers>
+
+                                <Grid ColumnDefinitions="*, Auto">
+                                    <VerticalStackLayout Grid.Column="0">
+                                        <Label Text="{Binding Business.Name}" 
+                                               FontAttributes="Bold" 
+                                               FontSize="16"/>
+                                        <Label Text="{Binding Timestamp, StringFormat='{0:M/dd/yy}'}" 
+                                               TextColor="Gray" 
+                                               FontSize="12" />
+                                    </VerticalStackLayout>
+
+                                    <Label Grid.Column="1" 
+                                           Text="{Binding TotalSpent, StringFormat='${0:F2}'}" 
+                                           FontSize="18" 
+                                           FontAttributes="Bold" 
+                                           VerticalOptions="Center"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

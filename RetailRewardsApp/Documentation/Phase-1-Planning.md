@@ -236,3 +236,53 @@ very well, as well as TransactionDetail navigating into ItemDetail. Wakaka!
 - Success = Mostly
 - Deals screen and subsidiary is complete, but i didnt get to profile. But navigation between offer, offer detail, and item detail
 is good. Next time we finish Profile and thats all i wanted to do before I left for Tampa on 4/9.
+
+
+
+4/8/2026
+- So Far: Completed Home, Scan, Menu, Deals, and their subsidiaries
+
+- Task today:
+	- Profile, maybe EditProfile, but im pretty tired.
+
+
+- Success = Mostly
+- I did complete Profile, but not EditProfile, like i thought. This is my 3rd of 4 nights in a row so I was really tired.
+
+
+
+4/9/2026
+- So Far: Completed Home, Scan, Menu, Deals, and their subsidiaries, as well as Profile.
+
+- Task Today: 
+	- EditProfile
+
+- Real quick check for my expectations of what I wanted to get done by today:
+
+	- Overall Plan until 4/9
+		- ~~Each page has a basic UI containing the main parts and positions of the end result~~
+		- ~~Each page and its subsidaries has proper function and switch betweens~~
+
+
+		- 4/3 - ~~Complete Login & Home UI, add functionality to Home subsidiaries, if not too exhausted maybe do UI for those~~
+			  - Home Subsidiaries: ~~NotificationDetailPage, HistoryDetailPage, ItemDetailPage~~
+
+		- 4/4 
+			- ~~If UI for Home subsidiaries not completed, complete them & Scan maybe start on Menu~~
+			- Else, Complete Scan & Menu
+				- (Menu subsidiary is ItemDetailPage)
+
+		- 4/6 - ~~Complete Menu & Deals, possibly Deals Subsidiary functionality (OfferDetailPage)~~
+
+		- 4/7 - ~~Complete Deals Subsidiary UI if not done, Complete Profile~~
+		
+		- 4/8 - ~~Complete Profile Subsidiary (EditProfilePage)~~ (finished today 4/9)
+
+- Success = True!
+- I also added some navigation from TransactionDetail to OfferDetail, but otherwise thats everything! Good job me!
+- So after I get back from Tampa, next steps is this:
+	- QR Code API
+	- AI Suggestions API
+	- Improved UI and flair each screen
+- Probably in that order also. Get the data and everything flowing and set up first thing, then we can worry about making it all
+pretty and everything.
