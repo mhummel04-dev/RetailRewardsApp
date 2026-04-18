@@ -7,39 +7,35 @@ using System.Windows.Input;
 using RetailRewardsApp.Core.Services;
 using RetailRewardsApp.Mobile.Views;
 using RetailRewardsApp.Core.Models;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using QRCoder;
 
 namespace RetailRewardsApp.Mobile.ViewModels
 {
-    public class ScanViewModel : INotifyPropertyChanged
+    public partial class ScanViewModel : ObservableObject
     {
         // Service(s) and associated var(s)
-        private readonly SessionService SessionService;
-        private User _user;
-        
-        // Binding Variables
-        public User BindingUser { get => _user; set
-            {
-                if (_user != value)
-                {
-                    _user = value;
-                    OnPropertyChanged();
-                }
-            } 
-        }
+        private readonly SessionService _sessionService;
+        [ObservableProperty]
+        private User _currentUser;
+        [ObservableProperty]
+        private ImageSource _qrImageSource;
+  
 
 
         public ScanViewModel(SessionService sessionService) 
         {
-            SessionService = sessionService;
-            BindingUser = SessionService.LoggedInUser;
-        }
+            _sessionService = sessionService;
+            CurrentUser = _sessionService.LoggedInUser;
 
-
-        // INotifyPropertyChanged invoker
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            using (QRCodeGenerator qrGenerator = new QRCodeGenerator()) 
+            using (QRCodeData qrCodeData = qrGenerator.CreateQrCode(CurrentUser.PhoneNumber, QRCodeGenerator.ECCLevel.Q))
+            using (PngByteQRCode qrCode = new PngByteQRCode(qrCodeData))
+            {
+                byte[] qrCodeAsPgnByteArray = qrCode.GetGraphic(20);
+                QrImageSource = ImageSource.FromStream(() => new MemoryStream(qrCodeAsPgnByteArray));
+            }
         }
     }
 }

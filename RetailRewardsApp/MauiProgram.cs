@@ -1,7 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
 using RetailRewardsApp.Core.Services;
+using RetailRewardsApp.Core.Interfaces;
 using RetailRewardsApp.Mobile.ViewModels;
 using RetailRewardsApp.Mobile.Views;
+using Microsoft.Extensions.Configuration;
+using System.Reflection;
+using Microsoft.SemanticKernel.Services;
 
 namespace RetailRewardsApp
 {
@@ -10,6 +14,7 @@ namespace RetailRewardsApp
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
+            builder.Configuration.AddUserSecrets(Assembly.GetExecutingAssembly());
             builder
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>
@@ -17,6 +22,9 @@ namespace RetailRewardsApp
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+
+            builder.Services.AddSingleton<Core.Interfaces.IAIService, GeminiService>();
+
 
             builder.Services.AddSingleton<SessionService>();
             builder.Services.AddTransient<LoginViewModel>();

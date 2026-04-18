@@ -286,3 +286,23 @@ is good. Next time we finish Profile and thats all i wanted to do before I left 
 	- Improved UI and flair each screen
 - Probably in that order also. Get the data and everything flowing and set up first thing, then we can worry about making it all
 pretty and everything.
+
+
+
+4/17
+- Took a little break, now we're back. just did the QR code package today.
+
+
+4/18
+- Task: get a satisfying amount of the agentic AI thing going. i just installed the nuGet package for semantic kernel and im 
+getting the API key for Gemini right now. Im not sure what the point of stopping will be today, but i just wanna do some 
+satisfying progress with it. maybe just having a testable result or something.
+
+- success = true
+- i got in a AIService interface for if i ever change out models, and added a GeminiService from it for now. i added the api key to
+user secrets for security purposes, and got a successful query/response from the flash 2.5 model. that response for now is good
+enough to me, now im gonna start thinking:
+	- how to implement it into the UI
+	- give it a basic UI and add it in so everything technical has been done and given a basic UI then we can work to make it 
+	really pretty.
+

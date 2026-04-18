@@ -10,6 +10,7 @@ using RetailRewardsApp.Core.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.Input;
+using RetailRewardsApp.Core.Interfaces;
 
 namespace RetailRewardsApp.Mobile.ViewModels
 {
@@ -24,14 +25,23 @@ namespace RetailRewardsApp.Mobile.ViewModels
         [ObservableProperty]
         private ObservableCollection<Transaction> _purchaseHistory;
 
+        private readonly IAIService _aiService;
 
-
-        public HomeViewModel(SessionService sessionService) 
+        public HomeViewModel(SessionService sessionService, IAIService aiService) 
         {
             _sessionService = sessionService;
             _user = _sessionService.LoggedInUser;
             _notifications = new ObservableCollection<Notification>(_user.Notifications);
             _purchaseHistory = new ObservableCollection<Transaction>(_user.Transactions);
+
+
+            _aiService = aiService;
+
+            // This is a quick fire-and-forget test
+            Task.Run(async () => {
+                var reply = await _aiService.GetResponseAsync("Give me a one-sentence retail greeting.");
+                System.Diagnostics.Debug.WriteLine($"[AI TEST]: {reply}");
+            });
         }
 
 

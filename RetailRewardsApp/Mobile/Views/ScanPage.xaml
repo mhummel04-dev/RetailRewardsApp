@@ -3,19 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RetailRewardsApp.Mobile.Views.ScanPage"
              Title="ScanPage">
-    
+
     <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="20">
-        
-        <Label Text="Align QR Code within the frame" HorizontalOptions="Center" />
+
+        <Label Text="Scan this QR code at the store!" HorizontalOptions="Center" />
 
         <Border Stroke="Gray" StrokeThickness="2" HeightRequest="250" WidthRequest="250">
-            <Image Source="sample_qrcode.png" 
-               Aspect="AspectFit" 
-               Opacity="0.5" />
+            <Image Source="{Binding QrImageSource}" 
+               WidthRequest="250" 
+               HeightRequest="250" 
+               HorizontalOptions="Center" />
         </Border>
-
-        <Button Text="Flashlight" WidthRequest="150" />
         
     </VerticalStackLayout>
-    
 </ContentPage>
