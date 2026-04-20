@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.Connectors.Google;
+using RetailRewardsApp.Core.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using RetailRewardsApp.Core.Interfaces;
-using Microsoft.SemanticKernel;
-using Microsoft.Extensions.Configuration;
 
 namespace RetailRewardsApp.Core.Services
 {
@@ -11,24 +12,21 @@ namespace RetailRewardsApp.Core.Services
     {
         private readonly Kernel _kernel;
 
-        public GeminiService(IConfiguration config)
+        public GeminiService(Kernel kernel)
         {
-            var apiKey = config["Gemini:ApiKey"];
-
-            var builder = Kernel.CreateBuilder();
-            builder.AddGoogleAIGeminiChatCompletion(
-                modelId: "gemini-2.5-flash",
-                apiKey: apiKey);
-
-            _kernel = builder.Build();
+            _kernel = kernel;
         }
-
 
         public async Task<string> GetResponseAsync(string prompt)
         {
             try
             {
-                var result = await _kernel.InvokePromptAsync(prompt);
+                var settings = new GeminiPromptExecutionSettings
+                {
+                    FunctionChoiceBehavior = FunctionChoiceBehavior.Auto()
+                };
+
+                var result = await _kernel.InvokePromptAsync(prompt, new KernelArguments(settings));
                 return result.ToString();
             }
             catch (Exception ex)

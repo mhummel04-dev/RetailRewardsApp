@@ -306,3 +306,22 @@ enough to me, now im gonna start thinking:
 	- give it a basic UI and add it in so everything technical has been done and given a basic UI then we can work to make it 
 	really pretty.
 
+
+4/20
+- Task: Find a spot(s) in the UI for the recommendation service, configure it properly with functions, and add a basic UI for it.
+
+- After today, its gonna be full focus on prettying up the app.
+
+- Notes for future: I'd like to add in one main piece of UI for the AI suggestor (maybe chatbot eventually), for the home screen
+but i would like it implemented into the Menu and Offers page as an AI recommended sort that you can turn off and sort 
+alphabetically, but for now i wanna be more focused on making it look pretty so I can send off a pretty product to WOSV.
+- To sum up, today im just getting base config and basic UI place, but eventually I wanna put in an AI sort into the menus.
+
+- Success = true but not all the way
+- I got a lot of it going and kinda working but i got frustrated with the Offer.Item Item.Offer cycle.
+I'm gonna have to go through and redesign it so its a list of GUIDs and upon traveling it will do a GetItem(id) so this can stop
+being an architectural issue. but i did make a lot of progress with it.
+
+- immediate future tasks: fix above issue with guids
+				          make UI pretty
+

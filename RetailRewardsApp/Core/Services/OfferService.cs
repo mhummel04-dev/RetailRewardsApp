@@ -7,11 +7,16 @@ namespace RetailRewardsApp.Core.Services
 {
     public class OfferService
     {
-        FakeDatabaseService FakeDB = new FakeDatabaseService();
+        private readonly SessionService _sessionService;
+
+        public OfferService(SessionService sessionService)
+        {
+            _sessionService = sessionService;
+        }
 
         public Offer GetOfferById(Guid Id)
         {
-            Offer Offer = FakeDB.FakeOfferTable.FirstOrDefault(i => i.Id == Id);
+            Offer Offer = _sessionService.FakeDB.FakeOfferTable.FirstOrDefault(i => i.Id == Id);
             return Offer;
         }
     }

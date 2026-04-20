@@ -7,12 +7,15 @@ namespace RetailRewardsApp.Core.Services
 {
     public class ItemService
     {
-        FakeDatabaseService FakeDB = new FakeDatabaseService();
-        public ItemService() {}
+        private readonly SessionService _sessionService;
+        public ItemService(SessionService sessionService) 
+        {
+            _sessionService = sessionService;
+        }
 
         public Item GetItemById(Guid Id)
         {
-            Item item = FakeDB.FakeItemTable.FirstOrDefault(i => i.Id == Id);
+            Item item = _sessionService.FakeDB.FakeItemTable.FirstOrDefault(i => i.Id == Id);
             return item;
         }
     }

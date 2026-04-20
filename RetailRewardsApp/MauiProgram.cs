@@ -1,11 +1,13 @@
-﻿using Microsoft.Extensions.Logging;
-using RetailRewardsApp.Core.Services;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.Services;
 using RetailRewardsApp.Core.Interfaces;
+using RetailRewardsApp.Core.Plugins;
+using RetailRewardsApp.Core.Services;
 using RetailRewardsApp.Mobile.ViewModels;
 using RetailRewardsApp.Mobile.Views;
-using Microsoft.Extensions.Configuration;
 using System.Reflection;
-using Microsoft.SemanticKernel.Services;
 
 namespace RetailRewardsApp
 {
@@ -14,7 +16,6 @@ namespace RetailRewardsApp
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
-            builder.Configuration.AddUserSecrets(Assembly.GetExecutingAssembly());
             builder
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>
@@ -22,9 +23,6 @@ namespace RetailRewardsApp
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
-
-            builder.Services.AddSingleton<Core.Interfaces.IAIService, GeminiService>();
-
 
             builder.Services.AddSingleton<SessionService>();
             builder.Services.AddTransient<LoginViewModel>();
@@ -49,8 +47,33 @@ namespace RetailRewardsApp
             builder.Services.AddTransient<OfferDetailViewModel>();
             builder.Services.AddTransient<EditProfileViewModel>();
             builder.Services.AddTransient<EditProfilePage>();
+            builder.Services.AddTransient<UserHistoryPlugin>();
+            builder.Services.AddTransient<CatalogPlugin>();
 
 
+            //AI Stuff
+            builder.Configuration.AddUserSecrets(Assembly.GetExecutingAssembly());
+            builder.Services.AddSingleton<Core.Interfaces.IAIService, GeminiService>();
+
+            var kernelBuilder = Kernel.CreateBuilder();
+            var apiKey = builder.Configuration["Gemini:ApiKey"];
+
+            builder.Services.AddTransient<Kernel>((serviceProvider) =>
+            {
+                var kernelBuilder = Kernel.CreateBuilder();
+
+                kernelBuilder.AddGoogleAIGeminiChatCompletion(
+                    modelId: "gemini-3.1-flash-lite-preview",
+                    apiKey: apiKey);
+
+                var historyPlugin = serviceProvider.GetRequiredService<UserHistoryPlugin>();
+                var catalogPlugin = serviceProvider.GetRequiredService<CatalogPlugin>();
+
+                kernelBuilder.Plugins.AddFromObject(historyPlugin);
+                kernelBuilder.Plugins.AddFromObject(catalogPlugin);
+
+                return kernelBuilder.Build();
+            });
 
 #if DEBUG
             builder.Logging.AddDebug();
